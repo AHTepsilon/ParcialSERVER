@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
@@ -32,9 +33,20 @@ public class Principal extends PApplet
 	
 	private Socket socket;
 	
+	private ArrayList<Particles> particleArrList;
+	
+	int r, g, b;
+	int x, y;
+	String name;
+	int amount;
+	
+	int randomNum;
+	
 	@Override
 	public void setup() //void Start
 	{
+		particleArrList = new ArrayList<Particles>();
+		
 		initServer();
 	}
 	
@@ -42,6 +54,16 @@ public class Principal extends PApplet
 	public void draw() //void Update
 	{		
 		background(255);
+		
+		for(int i = 0; i < particleArrList.size(); i++)
+		{
+			fill(r, g, b);
+			strokeWeight(4);
+			circle(x, y, 50);
+			
+			move();
+		}
+
 	}
 	
 	public void initServer()
@@ -72,7 +94,26 @@ public class Principal extends PApplet
 							Gson gson = new Gson();
 							Particles particle = gson.fromJson(line, Particles.class);
 							
-							System.out.println(particle.getName());
+							x = particle.getX();
+							y = particle.getY();
+							
+							r = particle.getR();
+							g = particle.getB();
+							b = particle.getG();
+							
+							name = particle.getName();
+							
+							amount = particle.getAmount();
+							
+							System.out.println(x + " " + y + " " + name + " " + amount + " " + r + ", " + g + ", " + b);
+							
+							for(int i = 0; i < amount; i++)
+							{
+								particleArrList.add(new Particles(x, y, name, amount, r, g, b));
+								
+								randomNum = (int) random(0, 4);
+							}
+								
 						}
 						
 					} catch (IOException e) {
@@ -81,6 +122,25 @@ public class Principal extends PApplet
 					}
 					
 				}).start();
+	}
+	
+	public void move()
+	{
+		switch(randomNum)
+		{
+		case 0:
+			x++;
+			break;
+		case 1:
+			x--;
+			break;
+		case 2:
+			y++;
+			break;
+		case 3:
+			y--;
+			break;
+		}
 	}
 
 }
