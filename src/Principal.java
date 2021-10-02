@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.google.gson.Gson;
+
+import model.Particles;
 import processing.core.PApplet;
 
 public class Principal extends PApplet
@@ -65,6 +68,11 @@ public class Principal extends PApplet
 							System.out.println("Awaiting message...");
 							String line = reader.readLine();
 							System.out.println("Received message: " + line);
+							
+							Gson gson = new Gson();
+							Particles particle = gson.fromJson(line, Particles.class);
+							
+							System.out.println(particle.getName());
 						}
 						
 					} catch (IOException e) {
