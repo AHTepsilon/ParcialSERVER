@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import model.Particles;
 import processing.core.PApplet;
@@ -95,25 +96,36 @@ public class Principal extends PApplet
 							String line = reader.readLine();
 							System.out.println("Received message: " + line);
 							
-							Gson gson = new Gson();
-							Particles particle = gson.fromJson(line, Particles.class);
-							
-							for(int i = 0; i < particle.getAmount(); i++)
+							try
 							{
-								x = particle.getX();
-								y = particle.getY();
+								Gson gson = new Gson();
+								Particles particle = gson.fromJson(line, Particles.class);
+							
+								for(int i = 0; i < particle.getAmount(); i++)
+								{
+									x = particle.getX();
+									y = particle.getY();
 								
-								r = particle.getR();
-								g = particle.getB();
-								b = particle.getG();
+									r = particle.getR();
+									g = particle.getB();
+									b = particle.getG();
 								
-								name = particle.getName();
+									name = particle.getName();
 								
-								amount = particle.getAmount();
+									amount = particle.getAmount();
 								
-								System.out.println(x + " " + y + " " + name + " " + amount + " " + r + ", " + g + ", " + b);
+									System.out.println(x + " " + y + " " + name + " " + amount + " " + r + ", " + g + ", " + b);
 								
-								particleArrList.add(new Particles(x, y, name, amount, r, g, b));
+									particleArrList.add(new Particles(x, y, name, amount, r, g, b));
+								}
+							} 
+							catch(JsonSyntaxException err)
+							{
+								particleArrList.clear();
+							}
+							catch(IllegalStateException ise)
+							{
+								particleArrList.clear();
 							}
 								
 						}
