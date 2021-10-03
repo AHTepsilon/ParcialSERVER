@@ -42,6 +42,8 @@ public class Principal extends PApplet
 	
 	int randomNum;
 	
+	int dir;
+	
 	@Override
 	public void setup() //void Start
 	{
@@ -57,11 +59,13 @@ public class Principal extends PApplet
 		
 		for(int i = 0; i < particleArrList.size(); i++)
 		{
-			fill(r, g, b);
+
 			strokeWeight(4);
 			circle(x, y, 50);
+			fill(r, g, b);
 			
 			move();
+			showTag();
 		}
 
 	}
@@ -94,24 +98,22 @@ public class Principal extends PApplet
 							Gson gson = new Gson();
 							Particles particle = gson.fromJson(line, Particles.class);
 							
-							x = particle.getX();
-							y = particle.getY();
-							
-							r = particle.getR();
-							g = particle.getB();
-							b = particle.getG();
-							
-							name = particle.getName();
-							
-							amount = particle.getAmount();
-							
-							System.out.println(x + " " + y + " " + name + " " + amount + " " + r + ", " + g + ", " + b);
-							
-							for(int i = 0; i < amount; i++)
+							for(int i = 0; i < particle.getAmount(); i++)
 							{
-								particleArrList.add(new Particles(x, y, name, amount, r, g, b));
+								x = particle.getX();
+								y = particle.getY();
 								
-								randomNum = (int) random(0, 4);
+								r = particle.getR();
+								g = particle.getB();
+								b = particle.getG();
+								
+								name = particle.getName();
+								
+								amount = particle.getAmount();
+								
+								System.out.println(x + " " + y + " " + name + " " + amount + " " + r + ", " + g + ", " + b);
+								
+								particleArrList.add(new Particles(x, y, name, amount, r, g, b));
 							}
 								
 						}
@@ -126,6 +128,8 @@ public class Principal extends PApplet
 	
 	public void move()
 	{
+		randomNum = (int) random(0, 4);
+		
 		switch(randomNum)
 		{
 		case 0:
@@ -140,6 +144,43 @@ public class Principal extends PApplet
 		case 3:
 			y--;
 			break;
+		}
+		
+		if(x >= 800)
+		{
+			x = 799;
+			System.out.println("no no");
+		}
+		
+		else if(x <= 0)
+		{
+			x = 1;
+			System.out.println("no no");
+		}
+		
+		if(y >= 500)
+		{
+			y = 499;
+			System.out.println("no no");
+		}
+		
+		else if(y <= 0)
+		{
+			y = 1;
+			System.out.println("no no");
+		}
+	}
+	
+	public void showTag()
+	{
+		for(int i = 0; i < particleArrList.size(); i++)
+		{
+			if(dist(mouseX, mouseY, particleArrList.get(i).getX(), particleArrList.get(i).getY()) < 50)
+			{
+				fill(0);
+				text(particleArrList.get(i).getName(), mouseX, mouseY);
+				fill(r, g, b);
+			}
 		}
 	}
 
