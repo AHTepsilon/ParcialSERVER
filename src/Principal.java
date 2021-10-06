@@ -61,13 +61,58 @@ public class Principal extends PApplet
 		for(int i = 0; i < particleArrList.size(); i++)
 		{
 
-			strokeWeight(4);
-			circle(x, y, 50);
-			fill(r, g, b);
+			//strokeWeight(4);
+			noStroke();
+			circle(particleArrList.get(i).getX(), particleArrList.get(i).getY(), 50);
+			fill(particleArrList.get(i).getR(), particleArrList.get(i).getG(), particleArrList.get(i).getB());
 			
-			move();
 			showTag();
+			
+			randomNum = (int)random(0, 5);
+			System.out.println(randomNum);
+			
+			switch(randomNum)
+			{
+			case 0:
+				particleArrList.get(i).setX(particleArrList.get(i).getX()+2);
+				break;
+			case 1:
+				particleArrList.get(i).setX(particleArrList.get(i).getX()-2);;
+				break;
+			case 2:
+				particleArrList.get(i).setY(particleArrList.get(i).getY()+2);;
+				break;
+			case 3:
+				particleArrList.get(i).setY(particleArrList.get(i).getY()-2);;;
+				break;
+			}
+			
+			if(particleArrList.get(i).getX() >= 800)
+			{
+				particleArrList.get(i).setX(799);
+				System.out.println("no no");
+			}
+			
+			else if(particleArrList.get(i).getX() <= 0)
+			{
+				particleArrList.get(i).setX(1);
+				System.out.println("no no");
+			}
+			
+			if(particleArrList.get(i).getY() >= 500)
+			{
+				particleArrList.get(i).setY(499);
+				System.out.println("no no");
+			}
+			
+			else if(particleArrList.get(i).getY() <= 0)
+			{
+				particleArrList.get(i).setY(1);
+				System.out.println("no no");
+			}
 		}
+		
+		//System.out.println(particleArrList.size());
 
 	}
 	
@@ -138,10 +183,8 @@ public class Principal extends PApplet
 				}).start();
 	}
 	
-	public void move()
-	{
-		randomNum = (int) random(0, 4);
-		
+	public void move(int randomNm)
+	{	
 		switch(randomNum)
 		{
 		case 0:
