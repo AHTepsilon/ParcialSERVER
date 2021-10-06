@@ -152,8 +152,8 @@ public class Principal extends PApplet
 									y = particle.getY();
 								
 									r = particle.getR();
-									g = particle.getB();
-									b = particle.getG();
+									g = particle.getG();
+									b = particle.getB();
 								
 									name = particle.getName();
 								
@@ -230,7 +230,7 @@ public class Principal extends PApplet
 	{
 		for(int i = 0; i < particleArrList.size(); i++)
 		{
-			if(dist(mouseX, mouseY, particleArrList.get(i).getX(), particleArrList.get(i).getY()) < 50)
+			if(dist(mouseX, mouseY, particleArrList.get(i).getX(), particleArrList.get(i).getY()) < 25)
 			{
 				fill(0);
 				text(particleArrList.get(i).getName(), mouseX, mouseY);
