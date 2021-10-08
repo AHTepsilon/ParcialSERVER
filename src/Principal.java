@@ -183,49 +183,6 @@ public class Principal extends PApplet
 				}).start();
 	}
 	
-	public void move(int randomNm)
-	{	
-		switch(randomNum)
-		{
-		case 0:
-			x++;
-			break;
-		case 1:
-			x--;
-			break;
-		case 2:
-			y++;
-			break;
-		case 3:
-			y--;
-			break;
-		}
-		
-		if(x >= 800)
-		{
-			x = 799;
-			System.out.println("no no");
-		}
-		
-		else if(x <= 0)
-		{
-			x = 1;
-			System.out.println("no no");
-		}
-		
-		if(y >= 500)
-		{
-			y = 499;
-			System.out.println("no no");
-		}
-		
-		else if(y <= 0)
-		{
-			y = 1;
-			System.out.println("no no");
-		}
-	}
-	
 	public void showTag()
 	{
 		for(int i = 0; i < particleArrList.size(); i++)
@@ -235,6 +192,8 @@ public class Principal extends PApplet
 				fill(0);
 				text(particleArrList.get(i).getName(), mouseX, mouseY);
 				fill(r, g, b);
+				
+				particleArrList.get(i).setX(mouseX);
 			}
 		}
 	}
