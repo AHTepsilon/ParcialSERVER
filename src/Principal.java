@@ -154,7 +154,7 @@ public class Principal extends PApplet
 									r = particle.getR();
 									g = particle.getG();
 									b = particle.getB();
-								
+									
 									name = particle.getName();
 								
 									amount = particle.getAmount();
@@ -191,7 +191,7 @@ public class Principal extends PApplet
 			{
 				fill(0);
 				text(particleArrList.get(i).getName(), mouseX, mouseY);
-				fill(r, g, b);
+				fill(particleArrList.get(i).getR(), particleArrList.get(i).getG(), particleArrList.get(i).getB());
 				
 				particleArrList.get(i).setX(mouseX);
 			}
